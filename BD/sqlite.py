@@ -378,9 +378,9 @@ class BD:
     def obtenerArchivos(self, instancia):
         self.conectar()
         
-        cursor = self.getCursor()
+        cursor = self.getCursor() # AGREGAR , e.binarizacion ABAJO
         cursor.execute(f''' 
-            SELECT i.nombre, i.archivo, e.binarizacion 
+            SELECT i.nombre, i.archivo
             FROM experimentos e 
             INNER JOIN iteraciones i ON e.id_experimento = i.fk_id_experimento 
             INNER JOIN instancias i2 ON e.fk_id_instancia = i2.id_instancia 
