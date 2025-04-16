@@ -4,6 +4,7 @@ from scipy import special as scyesp
 from .get_top_k import get_top_k
 
 # === Funciones de Transferencia ===
+
 TRANSFER_FUNCTIONS = {
     "S1": lambda x: 1 / (1 + np.exp(-2 * np.array(x))),
     "S2": lambda x: 1 / (1 + np.exp(-np.array(x))),
@@ -26,54 +27,31 @@ TRANSFER_FUNCTIONS = {
     "Z4": lambda x: np.sqrt(1 - np.exp(-10 * np.abs(x))),
 }
 
-# === Funciones de Binarización ===
-'''def gvp_binarization(continuous_values):
-    """
-    Implementa el enfoque de Great Value Priority (GVP) con optimización.
-    
-    Args:
-        continuous_values (np.ndarray): Valores continuos a transformar.
-        top_k (float): Porcentaje de elementos que serán binarizados como 1 (depende de la metaheurística, default = 0.06).
-    
-    Returns:
-        np.ndarray: Representación binaria.
-    """
-    
-    top_k = get_top_k(mh = "SBOA")
-    
-    continuous_values = np.array(continuous_values)
-    num_top = int(top_k * len(continuous_values))
-    
-    # Encuentra el umbral del top_k
-    threshold = np.partition(-continuous_values, num_top - 1)[num_top - 1]
-    
-    # Binariza según el umbral
-    binary_values = (continuous_values >= -threshold).astype(int)
-    
-    return binary_values'''
-
-'''def gvp_binarization_numba(X, num_activated):
-    partition_indices = np.argpartition(-X, num_activated)[:num_activated]
-    B = np.zeros_like(X, dtype=np.int32)
-    B[partition_indices] = 1
-    
-    return B'''
-
 def gvp_binarization(X):
+    """
+    Implementa la binarización Great Value Priority (GVP).
+    Calcula rangos estándar (1=mejor/más alto).
+    Binariza usando la regla: b_j = 1 si R[j] > R[j+1] sino 0 (cíclico).
 
-    X = np.array(X)
+    Args:
+        X (np.ndarray): Vector continuo de entrada (o resultado de func. transferencia).
 
-    indices_sorted = np.argsort(-X) + 1 
-
-    I = np.zeros_like(indices_sorted)
+    Returns:
+        np.ndarray: Vector binario de salida B.
+    """
     
-    for rank, original_index in enumerate(indices_sorted):
-        I[original_index - 1] = rank + 1  
+    X = np.array(X)
+    D = len(X) # Dimensión del vector
 
+    # Calcular rangos R (1=mejor/más alto)
+    sorted_indices = np.argsort(-X)
+    R = np.zeros(D, dtype=int)
+    R[sorted_indices] = np.arange(1, D + 1)
+    
     B = np.array([
-        1 if I[j] < I[(j + 1) % len(I)] else 0
-        for j in range(len(I))
-    ])
+        1 if R[j] > R[(j + 1) % D] else 0
+        for j in range(D)
+    ], dtype=int)
 
     return B
 
@@ -124,3 +102,36 @@ def aplicarBinarizacion(ind, ds, bestSolutionBin, indBin):
         raise ValueError(f"Error en la función de binarización '{binarizationFunction}': {e}")
 
     return individuoBin
+
+# === Funciones de Binarización ===
+'''def gvp_binarization(continuous_values):
+    """
+    Implementa el enfoque de Great Value Priority (GVP) con optimización.
+    
+    Args:
+        continuous_values (np.ndarray): Valores continuos a transformar.
+        top_k (float): Porcentaje de elementos que serán binarizados como 1 (depende de la metaheurística, default = 0.06).
+    
+    Returns:
+        np.ndarray: Representación binaria.
+    """
+    
+    top_k = get_top_k(mh = "SBOA")
+    
+    continuous_values = np.array(continuous_values)
+    num_top = int(top_k * len(continuous_values))
+    
+    # Encuentra el umbral del top_k
+    threshold = np.partition(-continuous_values, num_top - 1)[num_top - 1]
+    
+    # Binariza según el umbral
+    binary_values = (continuous_values >= -threshold).astype(int)
+    
+    return binary_values'''
+
+'''def gvp_binarization_numba(X, num_activated):
+    partition_indices = np.argpartition(-X, num_activated)[:num_activated]
+    B = np.zeros_like(X, dtype=np.int32)
+    B[partition_indices] = 1
+    
+    return B'''

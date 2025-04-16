@@ -181,7 +181,9 @@ def solverSCP(id, mh, maxIter, pop, instances, DS, repairType, param):
         
     finalTime = time.time()
     
-    final_log(bestFitness, initialTime, finalTime)
+    numberOfSubsets = str(sum(best))
+    
+    final_log(bestFitness, numberOfSubsets, initialTime, finalTime)
     
     results.close()
     

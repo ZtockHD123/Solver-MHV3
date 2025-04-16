@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from scipy.sparse import csr_matrix, coo_matrix
+from scipy.sparse import csr_matrix
 
 def matrix_dot_1(A, B, block_size):
     # Inicializar el resultado con ceros (es un vector de tamaño n)
@@ -10,10 +10,7 @@ def matrix_dot_1(A, B, block_size):
     for i in range(0, A.shape[0], block_size):
         # Seleccionar un bloque de filas de A
         A_block = A[i: i + block_size, :]
-        A_block = A[i: i + block_size, :]
         # Multiplicar el bloque de filas de A por el vector B
-        C[i: i + block_size] = np.dot(A_block, B)
-        
         C[i: i + block_size] = np.dot(A_block, B)
         
     return C
@@ -25,8 +22,6 @@ def matrix_dot_2(A, B, block_size):
     
     for i in range(0, A.shape[0], block_size):
         # Seleccionar un bloque de A y B
-        A_block = A[i: i + block_size]
-        B_block = B[i: i + block_size]
         A_block = A[i: i + block_size]
         B_block = B[i: i + block_size]
         # Calcular el producto punto del bloque y sumarlo al resultado total
@@ -59,6 +54,9 @@ class SCP:
             
             elif instance[5] == 'g' or instance[5] == 'h':
                 self.__block_size = 120
+            
+            else:
+                self.__block_size = 1
             
         self.readInstance(instance)
 
@@ -129,7 +127,7 @@ class SCP:
         # Preparar matriz de restricciones (matriz A)
         constrains = np.zeros((self.getRows(), self.getColumns()), dtype = np.int32).tolist()
 
-        # Lecutra de Restricciones
+        # Lectura de restricciones
         row = 0
 
         while line != "":
@@ -229,71 +227,7 @@ class SCP:
             ,'scpnrh3':[62, 59]
             ,'scpnrh4':[63, 58]
             ,'scpnrh5':[64, 55]
-            ,'scp41':[0, 429]
-            ,'scp42':[1, 512]
-            ,'scp43':[2, 516]
-            ,'scp44':[3, 494]
-            ,'scp45':[4, 512]
-            ,'scp46':[5, 560]
-            ,'scp47':[6, 430]
-            ,'scp48':[7, 492]
-            ,'scp49':[8, 641]
-            ,'scp410':[9, 514]
-            ,'scp51':[10, 253]
-            ,'scp52':[11, 302]
-            ,'scp53':[12, 226]
-            ,'scp54':[13, 242]
-            ,'scp55':[14, 211]
-            ,'scp56':[15, 213]
-            ,'scp57':[16, 293]
-            ,'scp58':[17, 288]
-            ,'scp59':[18, 279]
-            ,'scp510':[19, 265]
-            ,'scp61':[20, 138]
-            ,'scp62':[21, 146]
-            ,'scp63':[22, 145]
-            ,'scp64':[23, 131]
-            ,'scp65':[24, 161]
-            ,'scpa1':[25, 253]
-            ,'scpa2':[26, 252]
-            ,'scpa3':[27, 232]
-            ,'scpa4':[28, 234]
-            ,'scpa5':[29, 236]
-            ,'scpb1':[30, 69]
-            ,'scpb2':[31, 76]
-            ,'scpb3':[32, 80]
-            ,'scpb4':[33, 79]
-            ,'scpb5':[34, 72]
-            ,'scpc1':[35, 227]
-            ,'scpc2':[36, 219]
-            ,'scpc3':[37, 243]
-            ,'scpc4':[38, 219]
-            ,'scpc5':[39, 215]
-            ,'scpd1':[40, 60]
-            ,'scpd2':[41, 66]
-            ,'scpd3':[42, 72]
-            ,'scpd4':[43, 62]
-            ,'scpd5':[44, 61]
-            ,'scpnre1':[45, 29]
-            ,'scpnre2':[46, 30]
-            ,'scpnre3':[47, 27]
-            ,'scpnre4':[48, 28]
-            ,'scpnre5':[49, 28]
-            ,'scpnrf1':[50, 14]
-            ,'scpnrf2':[51, 15]
-            ,'scpnrf3':[52, 14]
-            ,'scpnrf4':[53, 14]
-            ,'scpnrf5':[54, 13]
-            ,'scpnrg1':[55, 176]
-            ,'scpnrg2':[56, 154]
-            ,'scpnrg3':[57, 166]
-            ,'scpnrg4':[58, 168]
-            ,'scpnrg5':[59, 168]
-            ,'scpnrh1':[60, 63]
-            ,'scpnrh2':[61, 63]
-            ,'scpnrh3':[62, 59]
-            ,'scpnrh4':[63, 58]
-            ,'scpnrh5':[64, 55]
+            ,'scptest_11x20':[65, 13]
         }
 
         for nomInstancia in orden:
@@ -503,6 +437,7 @@ def obtenerOptimo(archivoInstancia):
         ,'scpnrh3':[62, 59]
         ,'scpnrh4':[63, 58]
         ,'scpnrh5':[64, 55]
+        ,'scptest_11x20':[65, 13]
     }
 
     for nomInstancia in orden:
