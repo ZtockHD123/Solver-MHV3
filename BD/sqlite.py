@@ -375,23 +375,34 @@ class BD:
         self.commit()
         self.desconectar()
         
-    def obtenerArchivos(self, instancia):
+    def obtenerArchivos(self, instancia, incluir_binarizacion=True):
         self.conectar()
-        
-        cursor = self.getCursor() # AGREGAR , e.binarizacion ABAJO
-        cursor.execute(f''' 
-            SELECT i.nombre, i.archivo
-            FROM experimentos e 
-            INNER JOIN iteraciones i ON e.id_experimento = i.fk_id_experimento 
-            INNER JOIN instancias i2 ON e.fk_id_instancia = i2.id_instancia 
-            WHERE i2.nombre = '{instancia}' 
-            ORDER BY i2.nombre DESC, e.MH DESC
-        ''')
-        
+        cursor = self.getCursor()
+
+        if incluir_binarizacion:
+            query = '''
+                SELECT i.nombre, i.archivo, e.binarizacion 
+                FROM experimentos e 
+                INNER JOIN iteraciones i ON e.id_experimento = i.fk_id_experimento 
+                INNER JOIN instancias i2 ON e.fk_id_instancia = i2.id_instancia 
+                WHERE i2.nombre = ? 
+                ORDER BY i2.nombre DESC, e.MH DESC
+            '''
+        else:
+            query = '''
+                SELECT i.nombre, i.archivo 
+                FROM experimentos e 
+                INNER JOIN iteraciones i ON e.id_experimento = i.fk_id_experimento 
+                INNER JOIN instancias i2 ON e.fk_id_instancia = i2.id_instancia 
+                WHERE i2.nombre = ? 
+                ORDER BY i2.nombre DESC, e.MH DESC
+            '''
+
+        cursor.execute(query, (instancia,))
         data = cursor.fetchall()
-        
-        #print(f"[DEBUG] Datos de blob para instancia {instancia}: {data}")
+
         self.desconectar()
+        
         return data
 
     def obtenerMejoresArchivos(self, instancia, ml):

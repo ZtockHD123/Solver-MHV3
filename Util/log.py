@@ -63,7 +63,13 @@ def initial_log_scp_uscp(instance, DS, bestFitness, instances, initializationTim
     print("------------------------------------------------------------------------------------------------------")
     log_message(0, bestFitness, instance.getOptimum(), initializationTime2 - initializationTime1, XPT, XPL, maxDiversity, results)
 
-def final_log(bestFitness, subsSelected, initialTime, finalTime):
+def final_log(bestFitness, initialTime, finalTime):
+    print("------------------------------------------------------------------------------------------------------")
+    print(f"{Fore.GREEN}Tiempo de ejecución (s): {(finalTime - initialTime):.2f}")
+    print(f"{Fore.GREEN}Best Fitness: {bestFitness:.2e}")
+    print("------------------------------------------------------------------------------------------------------")
+        
+def final_log_scp(bestFitness, subsSelected, initialTime, finalTime):
     print("------------------------------------------------------------------------------------------------------")
     print(f"{Fore.GREEN}Tiempo de ejecución (s): {(finalTime - initialTime):.2f}")
     print(f"{Fore.GREEN}Best Fitness: {bestFitness:.2e} ({bestFitness})")

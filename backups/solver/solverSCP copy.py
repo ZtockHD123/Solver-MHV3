@@ -13,7 +13,7 @@ from Metaheuristics.imports import iterarPOA, IterarPO, iterarWOM, iterarQSO
 from Diversity.imports import diversidadHussain, porcentajesXLPXPT
 from Discretization import discretization as b
 from Util import util
-from Util.poblacion_SCP import initialize_population, evaluate_population
+from Solver.population.population_SCP import initialize_population, evaluate_population
 from BD.sqlite import BD
 
 def solverSCP(id, mh, maxIter, pop, instances, DS, repairType, param):
