@@ -1,8 +1,8 @@
 {
 
-"ben": true,
-"scp": false,
-"uscp": false,
+"ben": false,
+"scp": true,
+"uscp": true,
 
 "mhs": ["SBOA"],
     

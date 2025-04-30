@@ -44,5 +44,5 @@ def abrir_cmds_ejecutar_main(num_cmds):
 
 if __name__ == "__main__":
     # Definir la cantidad de terminales a levantar
-    num_cmds = 12
+    num_cmds = 10
     abrir_cmds_ejecutar_main(num_cmds)

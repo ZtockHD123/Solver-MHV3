@@ -46,7 +46,7 @@ def main():
     tiempo_total_fin = time.time()
     tiempo_total = round(tiempo_total_fin - tiempo_total_inicio, 2)
 
-    ancho = 50  # Ancho total de la línea
+    ancho = 50
 
     print("\n" + "=" * ancho)
     print("RESUMEN DE TIEMPOS DE EJECUCIÓN".center(ancho))
