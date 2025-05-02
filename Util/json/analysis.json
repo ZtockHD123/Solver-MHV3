@@ -1,9 +1,12 @@
 {
 
 "ben": false,
-"scp": false,
-"uscp": false,
-"kp": false,
+<<<<<<< HEAD
+
+=======
+"scp": true,
+"uscp": true,
+#>>>>>>> a7728f65fe0b200bfff31d379f1b8f2c1d52b128
 
 "mhs": ["SBOA"],
     

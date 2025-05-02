@@ -11,13 +11,16 @@
     },
 
     "ben": false,
-    "scp": false,
-    "uscp": false,
-    "kp": true,
-    
-    "mhs": ["SBOA", "PSO", "GWO"],
+<<<<<<< HEAD
 
-    "DS_actions": ["V3-ELIT"],
+=======
+    "scp": true,
+    "uscp": true,
+    
+    "mhs": ["SBOA"],
+    
+    "DS_actions": ["S3-ELIT", "V3-ELIT", "S3-GVP", "V3-GVP"],
+>>>>>>> a7728f65fe0b200bfff31d379f1b8f2c1d52b128
 
     "dimensiones": {
         "BEN": {
@@ -30,6 +33,7 @@
 
     "experimentos": {
         "BEN": {"iteraciones": 100, "poblacion": 50, "num_experimentos": 1},
+<<<<<<< HEAD
         "SCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 1},
         "USCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 31},
         "KP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 1}
@@ -40,5 +44,15 @@
         "SCP": ["41", "42", "51", "52", "61", "62", "a1", "a2", "b1", "b2", "c1", "c2", "d1", "d2", "nre1", "nre2", "nrf1", "nrf2", "nrg1", "nrg2", "nrh1", "nrh2"],
         "USCP": ["u41", "u51", "u61", "ua1", "ub1", "uc1", "ud1", "unre1", "unrf1", "unrg1", "unrh1", "uclr10", "uclr11", "uclr12", "ucyc06", "ucyc07", "ucyc08"],
         "KP" : ["f1_l-d_kp_10_269"]
+=======
+        "SCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 11},
+        "USCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 11}
+    },
+
+    "instancias": {
+        "BEN": ["F8"],
+        "SCP": ["41", "51", "c1", "d1"],
+        "USCP": ["uclr10", "uclr11", "uclr12", "uclr13"]
+>>>>>>> a7728f65fe0b200bfff31d379f1b8f2c1d52b128
     }
 }
