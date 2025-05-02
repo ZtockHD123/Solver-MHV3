@@ -45,7 +45,8 @@ def obtener_dimensiones(instance, problema):
     
     directorios = {
         'SCP': './Problem/SCP/Instances/',
-        'USCP': './Problem/USCP/Instances/'
+        'USCP': './Problem/USCP/Instances/',
+        'KP': './Problem/KP/Instances/'
     }
 
     if problema in directorios:
@@ -103,7 +104,7 @@ def insertar_experimentos(instancias, dimensiones, mhs, num_experimentos, iterac
         for dim in dimensiones:
             for mh in mhs:
                 # Verifica si el problema actual requiere binarización
-                if problemaActual in ['SCP', 'USCP']:
+                if problemaActual in ['SCP', 'USCP','KP']:
                     for binarizacion in config['DS_actions']:  # Solo iterar si el problema es discreto
                         data = crear_data_experimento(instancia, dim, mh, binarizacion, iteraciones, poblacion, extra_params, problemaActual)
                         bd.insertarExperimentos(data, num_experimentos, instancia[0])
@@ -127,7 +128,7 @@ def agregar_experimentos():
             dimensiones = obtener_dimensiones_ben(funcion)
             insertar_experimentos(instancias, dimensiones, config['mhs'], num_experimentos, iteraciones, poblacion, problemaActual='BEN')
 
-    for problema, activar in [('SCP', config.get('scp', False)), ('USCP', config.get('uscp', False))]:
+    for problema, activar in [('SCP', config.get('scp', False)), ('USCP', config.get('uscp', False)),  ('KP', config.get('kp', False))]:
         if activar:
             instancias_clave = config['instancias'][problema]
             instancias = bd.obtenerInstancias(",".join(f'"{i}"' for i in instancias_clave))
