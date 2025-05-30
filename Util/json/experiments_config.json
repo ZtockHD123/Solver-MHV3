@@ -3,6 +3,7 @@
         "ben": "Indica si se van a procesar funciones BEN.",
         "scp": "Indica si se van a procesar instancias SCP.",
         "uscp": "Indica si se van a procesar instancias USCP.",
+        "kp": "Indica si se van a procesar instancias de KP.",
         "mhs": "Lista de metaheurísticas que se van a procesar.",
         "DS_actions": "Lista de acciones de binarización de la población.",
         "dimensiones": "Mapea cada función BEN a las dimensiones que utiliza.",
@@ -11,12 +12,16 @@
     },
 
     "ben": false,
-    "scp": true,
-    "uscp": true,
+    "scp": false,
+    "uscp": false,
+    "kp": true,
+
+    "mhs": ["AOA","EOO","FLO","FOX","GOA","GWO",
+            "HBA","HLOA","LOA","NO","PO","POA",
+            "PSA","PSO","QSO","RSA","SBOA","SCA",
+            "SHO","TDO","WOA","WOM"],
     
-    "mhs": ["SBOA"],
-    
-    "DS_actions": ["S3-ELIT", "V3-ELIT", "S3-GVP", "V3-GVP"],
+    "DS_actions": ["S3-STD"],
 
     "dimensiones": {
         "BEN": {
@@ -29,13 +34,16 @@
 
     "experimentos": {
         "BEN": {"iteraciones": 100, "poblacion": 50, "num_experimentos": 1},
-        "SCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 11},
-        "USCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 11}
+        "SCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 1},
+        "USCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 11},
+        "KP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 31}
+
     },
 
     "instancias": {
         "BEN": ["F8"],
-        "SCP": ["41", "51", "c1", "d1"],
-        "USCP": ["uclr10", "uclr11", "uclr12", "uclr13"]
+        "SCP": ["41"],
+        "USCP": ["uclr10", "uclr11", "uclr12", "uclr13"],
+        "KP": ["knapPI_1_100_1000_1","knapPI_2_100_1000_1","knapPI_3_100_1000_1"]
     }
 }

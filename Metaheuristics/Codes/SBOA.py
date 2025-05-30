@@ -13,7 +13,7 @@ def levy(dim, beta=1.5):
     return u / np.abs(v) ** (1 / beta)
 
 # --- Función iterarSBOA con nombres de parámetros estándar ---
-def iterarSBOA(maxIter, iter, dim, population, fitness, best, fo):
+def iterarSBOA(maxIter, iter, dim, population, fitness, best, fo, objective_type):
     """
     Realiza una iteración del algoritmo SBOA.
 
@@ -58,10 +58,15 @@ def iterarSBOA(maxIter, iter, dim, population, fitness, best, fo):
     for i in range(N):
         # Pasar la solución candidata X1[i] a la función 'fo'
         X1[i], f_newP1 = fo(X1[i]) # Usar 'fo'
-
-        if f_newP1 <= fitness[i]:
-            population[i] = X1[i]
-            fitness[i] = f_newP1
+        
+        if objective_type == "MAX":
+            if f_newP1 >= fitness[i]:
+                population[i] = X1[i]
+                fitness[i] = f_newP1
+        else:
+            if f_newP1 <= fitness[i]:
+                population[i] = X1[i]
+                fitness[i] = f_newP1
 
     # Estrategia de escape (usando 'iter')
     r = np.random.rand()
@@ -86,9 +91,14 @@ def iterarSBOA(maxIter, iter, dim, population, fitness, best, fo):
          # Pasar la solución candidata X2[i] a la función 'fo'
         X2[i], f_newP2 = fo(X2[i]) # Usar 'fo'
 
-        if f_newP2 <= fitness[i]:
-            population[i] = X2[i]
-            fitness[i] = f_newP2
+        if  objective_type == "MAX":
+            if f_newP2 >= fitness[i]:
+                population[i] = X2[i]
+                fitness[i] = f_newP2
+        else:
+            if f_newP2 <= fitness[i]:
+                population[i] = X2[i]
+                fitness[i] = f_newP2
 
     # Devolver la población actualizada
     return population

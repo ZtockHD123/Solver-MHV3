@@ -11,6 +11,7 @@
         "violinplot": "./Resultados/violinplot/",
         "scp_instances": "./Problem/SCP/Instances/",
         "uscp_instances": "./Problem/USCP/Instances/",
+        "kp_instances": "./Problem/KP/Instances/",
         "graficos_benchmark": "./Graficos_Benchmark/"
     }
 }

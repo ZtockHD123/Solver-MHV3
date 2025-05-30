@@ -65,11 +65,6 @@ def iterate_population_scp(mh, population, iter, maxIter, instance, fitness, bes
             
         return new_population, vel, None
     
-    # --- Mapeo específico para HLOA ---
-    # Si se llama con 'HLOA', usar la versión SCP
-    if mh == 'HLOA':
-        mh = 'HLOA_SCP'
-    
     # --- Verificaciones esenciales (para MHs no especiales) ---
     if mh not in metaheuristics:
         raise ValueError(f"Metaheurística '{mh}' no encontrada en 'metaheuristics' (Metaheuristics/imports.py).")

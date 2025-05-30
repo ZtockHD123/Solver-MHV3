@@ -4,7 +4,7 @@ import numpy as np
 # Horned Lizard Optimization Algorithm (HLOA)
 # https://doi.org/10.1007/s10462-023-10653-7
 
-def iterarHLOAScp(dim, population, best, lb0, ub0):
+def iterarHLOA(dim, population, best, lb0, ub0):
     """
     HLOA Binario para resolver problemas combinatoriales.
 

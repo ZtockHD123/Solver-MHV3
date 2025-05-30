@@ -2,6 +2,7 @@ import time
 
 from Solver.solverBEN import solverBEN
 from Solver.solverSCP import solverSCP
+from Solver.solverKP import solverKP
 
 from BD.sqlite import BD
 
@@ -29,7 +30,21 @@ def ejecutar_problema_scp_uscp(id, instancia, ds, parametros, solver_func, unico
         id, parametros["mh"], int(parametros["iter"]),
         int(parametros["pop"]), instancia, ds, repair, parMH, unicost
     )
-
+def ejecutar_kp(id, instancia_name, ds, parametros, solver_func):
+        """Ejecuta problemas de tipo KP."""
+        # Extrae parámetros específicos para KP si es necesario
+        parMH_kp = parametros.get("parMH") # O el nombre del parámetro que uses para las MH en KP
+        
+        solver_func(
+            id,
+            parametros["mh"],
+            int(parametros["iter"]),
+            int(parametros["pop"]),
+            instancia_name, # Nombre del archivo de instancia, ej: "f1_l-d_kp_10_269"
+            ds,
+            parMH_kp
+        )
+    
 def procesar_experimento(data, bd):
     """Procesa cada experimento según su tipo y maneja errores."""
     id = int(data[0][0])
@@ -62,6 +77,9 @@ def procesar_experimento(data, bd):
 
     elif problema == "USCP":
         ejecutar_problema_scp_uscp(id, f"uscp{datosInstancia[0][2][1:]}", data[0][3], parametros, solverSCP, unicost=True)
+
+    elif problema == "KP":
+        ejecutar_kp(id, datosInstancia[0][2], data[0][3], parametros, solverKP)
 
     '''except ValueError as ve:
         log_error(id, f"Error de valor: {str(ve)}")

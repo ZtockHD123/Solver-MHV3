@@ -5,6 +5,7 @@ import opfunu.cec_based
 from Problem.SCP.problem import obtenerOptimo
 from Problem.USCP.problem import obtenerOptimoUSCP
 from Problem.USCP.problem import obtenerOptimoUSCP
+from Problem.KP.problem import obtenerOptimoKP
 
 class BD:
     def __init__(self):
@@ -99,6 +100,7 @@ class BD:
         self.insertarInstanciasBEN()
         self.insertarInstanciasSCP()
         self.insertarInstanciasUSCP()
+        self.insertarInstanciasKP()
 
         self.desconectar()
     
@@ -288,6 +290,22 @@ class BD:
             
             nombre = f'u{nombre[4:]}'
             
+            param = ''
+            
+            self.getCursor().execute(f'''  INSERT INTO instancias (tipo_problema, nombre, optimo, param) VALUES(?, ?, ?, ?) ''', (tipoProblema, nombre, optimo, param))
+            
+        self.commit()
+        self.desconectar()
+
+    def insertarInstanciasKP(self):
+        
+        self.conectar()
+        
+        data = os.listdir('./Problem/KP/Instances/')        
+        for d in data:
+            tipoProblema = 'KP'
+            nombre = d
+            optimo = obtenerOptimoKP(nombre)
             param = ''
             
             self.getCursor().execute(f'''  INSERT INTO instancias (tipo_problema, nombre, optimo, param) VALUES(?, ?, ?, ?) ''', (tipoProblema, nombre, optimo, param))

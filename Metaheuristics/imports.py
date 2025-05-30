@@ -11,7 +11,7 @@ from .Codes.GA import iterarGA
 from .Codes.GOA import iterarGOA
 from .Codes.GWO import iterarGWO
 from .Codes.HBA import iterarHBA
-from .Codes.HLOA import iterarHLOAScp, iterarHLOABen
+from .Codes.HLOA import iterarHLOA, iterarHLOABen
 from .Codes.LOA import iterarLOA
 from .Codes.NO import iterarNO
 from .Codes.PO import IterarPO
@@ -40,7 +40,7 @@ metaheuristics = {
     "GWO": iterarGWO,
     "HBA": iterarHBA,
     "HLOA_BEN": iterarHLOABen,
-    "HLOA_SCP": iterarHLOAScp,
+    "HLOA": iterarHLOA,
     "LOA": iterarLOA,
     "NO": iterarNO,
     "POA": iterarPOA,
@@ -81,7 +81,7 @@ MH_ARG_MAP = {
     # H
     'HBA':   ('maxIter', 'iter', 'population', 'best', 'fitness', 'fo', 'objective_type'),
     'HLOA_BEN':('dim', 'population', 'best', 'lb', 'ub'),
-    'HLOA_SCP':('dim', 'population', 'best', 'lb0', 'ub0'),
+    'HLOA':('dim', 'population', 'best', 'lb0', 'ub0'),
 
     # L
     'LOA':   ('iter', 'dim', 'population', 'best', 'lb0', 'ub0'),
@@ -101,7 +101,7 @@ MH_ARG_MAP = {
     'RSA':   ('maxIter', 'iter', 'dim', 'population', 'best', 'lb0', 'ub0'),
 
     # S
-    'SBOA':  ('maxIter', 'iter', 'dim', 'population', 'fitness', 'best', 'fo'),
+    'SBOA':  ('maxIter', 'iter', 'dim', 'population', 'fitness', 'best', 'fo', 'objective_type'),
     'SCA':   ('maxIter', 'iter', 'population', 'best'),
     'SHO':   ('maxIter', 'iter', 'dim', 'population', 'best', 'fo', 'objective_type'),
 
