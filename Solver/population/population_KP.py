@@ -18,7 +18,6 @@ def initialize_population(mh, pop, instance):
     
     return population, vel, pBestScore, pBest
 
-
 def evaluate_population(mh, population, fitness, instance, pBest, pBestScore):
     """
     Evaluates the initial population for KP, checking feasibility and calculating fitness.

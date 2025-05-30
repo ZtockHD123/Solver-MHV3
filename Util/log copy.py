@@ -54,7 +54,7 @@ def log_progress(iter, maxIter, bestFitness, optimo, timeEjecuted, XPT, XPL, div
         print(msg)
 
 def initial_log(function, dim, mh, bestFitness, optimo, initializationTime1, initializationTime2, XPT, XPL, maxDiversity, results):
-    print(f"{function} - {dim} - {mh} - Best Fitness Inicial: {bestFitness:.2e}")
+    print(f"{function} {dim} {mh} - Best Fitness Inicial: {bestFitness:.2e}")
     print("------------------------------------------------------------------------------------------------------")
     log_message(0, bestFitness, optimo, initializationTime2 - initializationTime1, XPT, XPL, maxDiversity, results)
 
@@ -75,20 +75,13 @@ def final_log_scp(bestFitness, subsSelected, initialTime, finalTime):
     print(f"{Fore.GREEN}Best Fitness: {bestFitness:.2e} ({bestFitness})")
     print(f"{Fore.GREEN}Subconjuntos seleccionados: {subsSelected}")
     print("------------------------------------------------------------------------------------------------------")
-    
-def final_log_kp(bestFitness, itemsSelected, initialTime, finalTime):
-    print("------------------------------------------------------------------------------------------------------")
-    print(f"{Fore.GREEN}Tiempo de ejecución (s): {(finalTime - initialTime):.2f}")
-    print(f"{Fore.GREEN}Best Fitness: {bestFitness:.2e} ({bestFitness})")
-    print(f"{Fore.GREEN}Cantidad de objetos seleccionados: {itemsSelected}")
-    print("------------------------------------------------------------------------------------------------------")
 
 def log_experimento(data):
     """Log para mostrar el inicio del procesamiento de un experimento."""
     print(f"Procesando Experimento ID: {data[0][0]}")
     print(f"Instancia: {data[0][1]}")
     print(f"{Fore.CYAN}Metaheurística: {data[0][2]}")
-    print(f"{Fore.YELLOW}Binarización: {data[0][3]}")
+    print(f"Binarización: {data[0][3]}")
     print(f"Parámetros: {data[0][4]}")
     print(f"Estado: {data[0][9]}")
     print("------------------------------------------------------------------------------------------------------")
@@ -129,25 +122,25 @@ def resumen_experimentos(log_resumen, cantidad):
         
         return
     
-    print("\n" + "-" * 154)
-    print(f"{'RESUMEN DETALLADO DE EXPERIMENTOS':^154}")
-    print("-" * 154)
+    print("\n" + "-" * 100)
+    print(f"{'RESUMEN DETALLADO DE EXPERIMENTOS':^100}")
+    print("-" * 100)
 
-    print(f"{'Problema':<17} {'Instancia':<20} {'Dimensión':<25} {'MH':<17} "
-          f"{'Iteraciones':<20} {'Población':<17} {'DS':<17} {'# Experimentos':<25}")
-    print("-" * 154)
+    print(f"{'Problema':<10} {'Instancia':<12} {'Dimensión':<15} {'MH':<10} "
+          f"{'Iteraciones':<12} {'Población':<10} {'DS':<10} {'# Experimentos':<15}")
+    print("-" * 100)
 
     for log in log_resumen:
         ds_value = "-"
         if 'Binarización' in log and log["Problema"] != "BEN":
             ds_value = log['Binarización']
 
-        print(f"{log['Problema']:<17} {log['Instancia']:<20} {log['Dimensión']:<25} {log['MH']:<17} "
-              f"{log['Iteraciones']:<20} {log['Población']:<17} {ds_value:<17} {log['Total Experimentos']:<25}")
+        print(f"{log['Problema']:<10} {log['Instancia']:<12} {log['Dimensión']:<15} {log['MH']:<10} "
+              f"{log['Iteraciones']:<12} {log['Población']:<10} {ds_value:<10} {log['Total Experimentos']:<15}")
 
-    print("-" * 154)
+    print("-" * 100)
     print(f"TOTAL EXPERIMENTOS INGRESADOS: {cantidad}")
-    print("-" * 154)
+    print("-" * 100)
     
 def escribir_resumenes(mhs_instances, archivoResumenFitness, archivoResumenTimes, archivoResumenPercentage, MHS_LIST):
     for name in MHS_LIST:

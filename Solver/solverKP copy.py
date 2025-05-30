@@ -6,8 +6,7 @@ from Problem.KP.problem import KP
 from Metaheuristics.imports import IterarPO
 from Diversity.imports import diversidadHussain,porcentajesXLPXPT
 from Discretization import discretization as b # Still needed for binarization within the loop if not handled by MH
-from Util.util import convert_into_binary
-from Util.log import initial_log, log_progress, final_log_kp
+from Util import util
 from BD.sqlite import BD
 
 # Import functions from the new population_kp.py
@@ -31,7 +30,9 @@ def solverKP(id, mh, maxIter, pop, instancia, DS, param):
     initialTime = time.time()
     
     initializationTime1 = time.time()
-
+    print("------------------------------------------------------------------------------------------------------")
+    print("instancia KP a resolver: "+instancia)
+    
     results = open(dirResult+mh+"_"+instancia.split(".")[0]+"_"+str(id)+".csv", "w")
     results.write(
         f'iter,fitness,time,XPL,XPT,DIV\n'
@@ -55,9 +56,19 @@ def solverKP(id, mh, maxIter, pop, instancia, DS, param):
     i = population.__len__() - 1
 
     initializationTime2 = time.time()
+
     posibles_mejoras = None
     
-    '''print("------------------------------------------------------------------------------------------------------")
+    # Log initial state
+    print("------------------------------------------------------------------------------------------------------")
+    print("fitness inicial: "+ str(fitness))
+    print("best fitness inicial: "+ str(bestFitness))
+    print("------------------------------------------------------------------------------------------------------")
+    if mh == "GA":
+        print("COMIENZA A TRABAJAR LA METAHEURISTICA "+mh)
+    else: 
+        print("COMIENZA A TRABAJAR LA METAHEURISTICA "+mh+ " / Binarizacion: "+ str(DS))
+    print("------------------------------------------------------------------------------------------------------")
     print("iteracion: "+
             str(0)+
             ", best: "+str(bestFitness)+
@@ -70,11 +81,7 @@ def solverKP(id, mh, maxIter, pop, instancia, DS, param):
             ", DIV: "+str(maxDiversity))
     results.write(
         f'0,{str(bestFitness)},{str(round(initializationTime2-initializationTime1,3))},{str(XPL)},{str(XPT)},{maxDiversity}\n'
-    )'''
-    
-    initial_log(instancia, instance.getItems(), mh, bestFitness, instance.getOptimum(), 
-                initializationTime1, initializationTime2, XPT,
-                XPL, maxDiversity, results)
+    )
     
     def fo(x):
         x = b.aplicarBinarizacion(x, DS, best, matrixBin[i]) # 'i' is still an issue here outside the loop
@@ -84,7 +91,7 @@ def solverKP(id, mh, maxIter, pop, instancia, DS, param):
     if mh == 'PO':
         iterarPO = IterarPO(fo, instance.getItems(), pop, maxIter, 0, 1)
 
-    for iter in range(1, maxIter + 1):
+    for iter in range(0, maxIter):
         # Get iteration start time
         timerStart = time.time()
         
@@ -127,12 +134,13 @@ def solverKP(id, mh, maxIter, pop, instancia, DS, param):
         if maxDiversity < div_t:
             maxDiversity = div_t
             
-        XPL, XPT, state = porcentajesXLPXPT(div_t, maxDiversity)
+        XPL , XPT, state = porcentajesXLPXPT(div_t, maxDiversity)
 
         timerFinal = time.time()
-        optimo = instance.getOptimum()
+        # Calculate time for the current iteration
+        timeEjecuted = timerFinal - timerStart
         
-        '''print("iteracion: "+
+        print("iteracion: "+
             str(iter+1)+
             ", best: "+str(bestFitness)+
             ", mejor iter: "+str(fitness[np.argsort(fitness)[pop-1]])+
@@ -145,24 +153,17 @@ def solverKP(id, mh, maxIter, pop, instancia, DS, param):
         
         results.write(
             f'{iter+1},{str(bestFitness)},{str(round(timeEjecuted,3))},{str(XPL)},{str(XPT)},{str(div_t)}\n'
-        )'''
-        
-        log_progress(iter, maxIter, bestFitness, optimo, timerFinal - timerStart, XPT, XPL, div_t, results)
-        
-    '''print("------------------------------------------------------------------------------------------------------")
+        )
+    print("------------------------------------------------------------------------------------------------------")
     print("best fitness: "+str(bestFitness))
     print("Cantidad de columnas seleccionadas: "+str(sum(best))) # For KP, this would be "Number of items selected"
-    print("------------------------------------------------------------------------------------------------------")'''
-    
+    print("------------------------------------------------------------------------------------------------------")
     finalTime = time.time()
     timeExecution = finalTime - initialTime
-    #print("Tiempo de ejecucion (s): "+str(timeExecution))
-    
-    final_log_kp(bestFitness, str(sum(best)), initialTime, finalTime)
-    
+    print("Tiempo de ejecucion (s): "+str(timeExecution))
     results.close()
     
-    binary = convert_into_binary(dirResult + mh+"_" + instancia.split(".")[0] + "_" + str(id) + ".csv")
+    binary = util.convert_into_binary(dirResult+mh+"_"+instancia.split(".")[0]+"_"+str(id)+".csv")
 
     fileName = mh+"_"+instancia.split(".")[0]
 
@@ -171,4 +172,4 @@ def solverKP(id, mh, maxIter, pop, instancia, DS, param):
     bd.insertarResultados(bestFitness, timeExecution, best, id)
     bd.actualizarExperimento(id, 'terminado')
     
-    os.remove(dirResult + mh + "_" + instancia.split(".")[0] + "_" + str(id) + ".csv")
+    os.remove(dirResult+mh+"_"+instancia.split(".")[0]+"_"+str(id)+".csv")

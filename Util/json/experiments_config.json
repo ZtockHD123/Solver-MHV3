@@ -20,8 +20,13 @@
             "HBA","HLOA","LOA","NO","PO","POA",
             "PSA","PSO","QSO","RSA","SBOA","SCA",
             "SHO","TDO","WOA","WOM"],
+
+    "mhs1": ["AOA","EOO","FLO","FOX","GOA","GWO",
+            "HBA","HLOA","LOA","NO","PO","POA",
+            "PSA","PSO","QSO","RSA","SBOA","SCA",
+            "SHO","TDO","WOA","WOM"],
     
-    "DS_actions": ["S3-STD"],
+    "DS_actions": ["S3-GVP", "S3-STD"],
 
     "dimensiones": {
         "BEN": {
@@ -36,7 +41,7 @@
         "BEN": {"iteraciones": 100, "poblacion": 50, "num_experimentos": 1},
         "SCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 1},
         "USCP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 11},
-        "KP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 31}
+        "KP": {"iteraciones": 100, "poblacion": 10, "num_experimentos": 1}
 
     },
 
@@ -44,6 +49,7 @@
         "BEN": ["F8"],
         "SCP": ["41"],
         "USCP": ["uclr10", "uclr11", "uclr12", "uclr13"],
-        "KP": ["knapPI_1_100_1000_1","knapPI_2_100_1000_1","knapPI_3_100_1000_1"]
+        "KP": ["knapPI_1_1000_1000_1", "knapPI_1_2000_1000_1", "knapPI_2_1000_1000_1", "knapPI_2_2000_1000_1", "knapPI_3_1000_1000_1", "knapPI_3_2000_1000_1"],
+        "KP1": ["knapPI_1_1000_1000_1","knapPI_2_1000_1000_1","knapPI_3_1000_1000_1"]
     }
 }

@@ -4,7 +4,7 @@ import os
 import json
 
 from Diversity.Codes.diversity import initialize_diversity, calculate_diversity
-from Metaheuristics.imports import metaheuristics, IterarPO
+from Metaheuristics.imports import IterarPO
 from Problem.Benchmark.Problem import fitness as f
 
 from Solver.population.population_BEN import initialize_population, evaluate_population, update_population, iterate_population
@@ -97,6 +97,7 @@ def solverBEN(id, mh, maxIter, pop, function, lb, ub, dim):
     final_log(bestFitness, initialTime, finalTime)
     
     results.close()
+    
     binary = convert_into_binary(dirResult + f"{mh}_{function}_{id}.csv")
     
     bd.insertarIteraciones(f"{mh}_{function}", binary, id)

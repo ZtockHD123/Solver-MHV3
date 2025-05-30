@@ -1,4 +1,3 @@
-import random
 import numpy as np
 
 # Global dictionary for KP optimal values, similar to 'orden' in SCP

@@ -307,7 +307,7 @@ def analizar_instancias():
             continue
 
         for binarizacion in lista_bin:
-            print(f"    ↳ Binarización: {binarizacion}")
+            print(f"    > Binarización: {binarizacion}")
             
             mhs_instances_local = {name: InstancesMhs() for name in MHS_LIST}
 
