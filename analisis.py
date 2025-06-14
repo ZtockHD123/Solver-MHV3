@@ -3,6 +3,7 @@ from Util.util import cargar_configuracion
 import analisisBEN
 import analisisSCP
 import analisisUSCP
+import analisisKP
 
 import time
 
@@ -42,6 +43,14 @@ def main():
         analisisUSCP.analizar_instancias()
         t1 = time.time()
         tiempos["USCP"] = round(t1 - t0, 2)
+        
+    if config.get("kp", False):
+        print("[INFO] Ejecutando análisis KP...")
+        print("-" * 50)
+        t0 = time.time()
+        analisisKP.analizar_instancias()
+        t1 = time.time()
+        tiempos["KP"] = round(t1 - t0, 2)
 
     tiempo_total_fin = time.time()
     tiempo_total = round(tiempo_total_fin - tiempo_total_inicio, 2)
